@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monet", "..\src\Monet\Monet.csproj", "{676ED6D5-9BDF-45F3-9DA1-A4EBEC2236ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonetCore", "..\src\MonetCore\MonetCore.csproj", "{416F8E3B-40C4-4884-882E-3D2DB4C5AB06}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{676ED6D5-9BDF-45F3-9DA1-A4EBEC2236ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{676ED6D5-9BDF-45F3-9DA1-A4EBEC2236ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{676ED6D5-9BDF-45F3-9DA1-A4EBEC2236ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{416F8E3B-40C4-4884-882E-3D2DB4C5AB06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{416F8E3B-40C4-4884-882E-3D2DB4C5AB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{416F8E3B-40C4-4884-882E-3D2DB4C5AB06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{416F8E3B-40C4-4884-882E-3D2DB4C5AB06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
