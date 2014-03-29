@@ -11,9 +11,14 @@ namespace MonetCore
 {
     public class MonetApp
     {
+        
+        private GraphicsDevice m_graphicsDevice;
+
         public void Run()
         {
             var form = new RenderForm("Monet");
+            m_graphicsDevice = new GraphicsDevice(form);
+            
 
             // Main loop
             RenderLoop.Run(form, () =>
