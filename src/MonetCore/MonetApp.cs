@@ -11,22 +11,33 @@ namespace MonetCore
 {
     public class MonetApp
     {
-        
+        private MonetServiceProvider m_services;
         private GraphicsDevice m_graphicsDevice;
-
         public void Run()
         {
             var form = new RenderForm("Monet");
             m_graphicsDevice = new GraphicsDevice(form);
-            
-
+            m_services = new MonetServiceProvider(new GraphicsDeviceService(m_graphicsDevice));
+           
             // Main loop
             RenderLoop.Run(form, () =>
             {
-               // context.ClearRenderTargetView(renderView, Color.Black);
-                
-                //swapChain.Present(0, PresentFlags.None);
+                Update();
+                Render();
             });
+        }
+
+        private void Update()
+        {
+
+        }
+
+        private void Render()
+        {
+            m_graphicsDevice.Clear(Color.Chartreuse);
+
+            m_graphicsDevice.Present();
+            
         }
     }
 }

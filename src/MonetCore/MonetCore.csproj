@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="ContentManager.cs" />
     <Compile Include="GraphicsDevice.cs" />
+    <Compile Include="Monet.cs" />
     <Compile Include="MonetApp.cs" />
     <Compile Include="MonetServiceProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
