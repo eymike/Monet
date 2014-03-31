@@ -25,6 +25,8 @@ namespace MonetCore
         {
             m_services.Add(typeof(GraphicsDeviceService), bootStrap);
 
+            var ca = typeof(ContentManager).GetCustomAttributes(true);
+
             var servicesToCreate = new LinkedList<Type>(
                 from assembly in AppDomain.CurrentDomain.GetAssemblies().AsParallel()
                 from type in assembly.GetTypes()
@@ -51,6 +53,7 @@ namespace MonetCore
                 {
                     Monet.LogMsg(string.Format("Inserting {0} into services collection", front.Name));
                     m_services.Add(front, front.GetConstructor(new Type[] { typeof(MonetServiceProvider) }).Invoke(new object[] { this }));
+                    servicesToCreate.RemoveFirst();
                 }
                 else
                 {
