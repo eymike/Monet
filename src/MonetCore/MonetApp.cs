@@ -12,6 +12,8 @@ namespace MonetCore
     public class MonetApp
     {
         private MonetServiceProvider m_services;
+        public MonetServiceProvider Services { get { return m_services; } }
+
         private GraphicsDevice m_graphicsDevice;
         public void Run()
         {
@@ -22,17 +24,27 @@ namespace MonetCore
             // Main loop
             RenderLoop.Run(form, () =>
             {
-                Update();
-                Render();
+                InternalUpdate();
+                InternalRender();
             });
         }
 
-        private void Update()
+        private void InternalUpdate()
+        {
+            Update();
+        }
+
+        private void InternalRender()
+        {
+            Render();
+        }
+
+        public virtual void Update()
         {
 
         }
 
-        private void Render()
+        public virtual void Render()
         {
             m_graphicsDevice.Clear(Color.Chartreuse);
 

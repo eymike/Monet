@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentManager.cs" />
+    <Compile Include="Content\ContentLoader.cs" />
     <Compile Include="Content\ShaderContentLoader.cs" />
     <Compile Include="GraphicsDevice.cs" />
     <Compile Include="Monet.cs" />

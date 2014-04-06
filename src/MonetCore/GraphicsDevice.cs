@@ -27,12 +27,21 @@ namespace MonetCore
     public class GraphicsDevice : IDisposable
     {
         private readonly SharpDX.Direct3D11.Device1 m_device;
+        public SharpDX.Direct3D11.Device1 Device
+        {
+            get { return m_device; }
+        }
+
         private readonly SharpDX.DXGI.SwapChain m_swapChain;
 
         private RenderTargetView m_renderTarget;
         private DepthStencilView m_depthStencil;
 
         private DeviceContext1 m_immContext;
+        public DeviceContext1 ImmediateContext
+        {
+            get { return m_immContext; }
+        }
 
         public GraphicsDevice(Form form)
         {
