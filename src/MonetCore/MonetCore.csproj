@@ -53,9 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppComponent.cs" />
     <Compile Include="ContentManager.cs" />
     <Compile Include="Content\ContentLoader.cs" />
     <Compile Include="Content\ShaderContentLoader.cs" />
+    <Compile Include="FrameTimer.cs" />
     <Compile Include="GraphicsDevice.cs" />
     <Compile Include="Monet.cs" />
     <Compile Include="MonetApp.cs" />

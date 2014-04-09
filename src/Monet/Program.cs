@@ -9,7 +9,7 @@ namespace Monet
     {
         static void Main()
         {
-            MonetCore.MonetApp app = new MonetCore.MonetApp();
+            TestApp app = new TestApp();
             app.Run();
         }
     }

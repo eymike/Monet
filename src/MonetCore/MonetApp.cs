@@ -15,18 +15,29 @@ namespace MonetCore
         public MonetServiceProvider Services { get { return m_services; } }
 
         private GraphicsDevice m_graphicsDevice;
+
         public void Run()
         {
             var form = new RenderForm("Monet");
             m_graphicsDevice = new GraphicsDevice(form);
             m_services = new MonetServiceProvider(new GraphicsDeviceService(m_graphicsDevice));
-           
+
+            LoadContent();
+
+            var timer = (FrameTimer)m_services.GetService(typeof(FrameTimer));
+            timer.Start();
+
             // Main loop
             RenderLoop.Run(form, () =>
             {
+                timer.Tick();
                 InternalUpdate();
                 InternalRender();
             });
+
+            timer.Stop();
+
+            UnloadContent();
         }
 
         private void InternalUpdate()
@@ -50,6 +61,16 @@ namespace MonetCore
 
             m_graphicsDevice.Present();
             
+        }
+
+        protected virtual void LoadContent()
+        {
+
+        }
+
+        protected virtual void UnloadContent()
+        {
+
         }
     }
 }

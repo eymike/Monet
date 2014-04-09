@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monet", "..\src\Monet\Monet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonetCore", "..\src\MonetCore\MonetCore.csproj", "{416F8E3B-40C4-4884-882E-3D2DB4C5AB06}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonetPainterly", "..\src\MonetPainterly\MonetPainterly.csproj", "{0226A7B8-A32D-4E4D-9675-4AD8EBBA1EB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{416F8E3B-40C4-4884-882E-3D2DB4C5AB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{416F8E3B-40C4-4884-882E-3D2DB4C5AB06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{416F8E3B-40C4-4884-882E-3D2DB4C5AB06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0226A7B8-A32D-4E4D-9675-4AD8EBBA1EB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0226A7B8-A32D-4E4D-9675-4AD8EBBA1EB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0226A7B8-A32D-4E4D-9675-4AD8EBBA1EB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0226A7B8-A32D-4E4D-9675-4AD8EBBA1EB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
