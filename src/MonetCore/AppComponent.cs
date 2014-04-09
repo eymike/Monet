@@ -7,15 +7,15 @@ namespace MonetCore
 {
     public interface IDrawable
     {
-        void Update();
-        int UpdateOrder { get; set; }
+        void Draw();
+        int DrawOrder { get; set; }
         event Action<IDrawable> OnDrawOrderChanged;
     }
 
     public interface IUpdateable
     {
-        void Draw();
-        int DrawOrder { get; set; }
+        void Update();
+        int UpdateOrder { get; set; }
         event Action<IUpdateable> OnUpdateOrderChanged;
     }
 
@@ -72,13 +72,16 @@ namespace MonetCore
         }
     }
 
+    [ServiceAtribute(Name = "AppComponentCollection")]
     public class AppComponentCollection
     {
+        public AppComponentCollection(MonetServiceProvider services) { }
+
         private class DrawableComparer : IComparer<IDrawable>
         {
             public int Compare(IDrawable x, IDrawable y)
             {
-                return x.UpdateOrder - y.UpdateOrder;
+                return x.DrawOrder - y.DrawOrder;
             }
         }
 
@@ -86,7 +89,7 @@ namespace MonetCore
         {
             public int Compare(IUpdateable x, IUpdateable y)
             {
-                return x.DrawOrder - y.DrawOrder;
+                return x.UpdateOrder - y.UpdateOrder;
             }
         }
 
@@ -163,6 +166,22 @@ namespace MonetCore
             if (m_updateables.Remove(component))
             {
                 component.OnUpdateOrderChanged -= Component_OnUpdateOrderChanged;
+            }
+        }
+
+        public void Update()
+        {
+            foreach (var updateable in m_updateables)
+            {
+                updateable.Update();
+            }
+        }
+
+        public void Draw()
+        {
+            foreach (var drawable in m_drawables)
+            {
+                drawable.Draw();
             }
         }
     }
