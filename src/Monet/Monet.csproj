@@ -34,9 +34,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Content\VertexTypes.fxi" />
-    <None Include="Content\WorldTransformVertexShader.hlsl">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -51,8 +48,20 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Content Include="Content\gs_VertexPositionColor.hlsl" />
+    <Content Include="Content\ps_VertexPositionColor.hlsl" />
+    <Content Include="Content\vs_VertexPositionColor.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="SharpDX, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\SharpDX\Bin\DirectX11_1-net40\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D11, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\SharpDX\Bin\DirectX11_1-net40\SharpDX.Direct3D11.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -62,6 +71,8 @@
   </Target>
   -->
   <Target Name="AfterBuild">
-    <Exec Command="$(SolutionDir)..\tool\fxc.bat /T vs_5_0 /E main /Fo $(OutDir)\Content\WorldTransformVertexShader.cso $(ProjectDir)\Content\WorldTransformVertexShader.hlsl" />
+    <Exec Command="$(SolutionDir)..\tool\fxc.bat /T vs_5_0 /E main /Fo $(OutDir)\Content\vs_VertexPositionColor.cso $(ProjectDir)\Content\vs_VertexPositionColor.hlsl" />
+    <!--<Exec Command="$(SolutionDir)..\tool\fxc.bat /T gs_5_0 /E main /Fo $(OutDir)\Content\gs_VertexPositionColor.cso $(ProjectDir)\Content\gs_VertexPositionColor.hlsl" />-->
+    <Exec Command="$(SolutionDir)..\tool\fxc.bat /T ps_5_0 /E main /Fo $(OutDir)\Content\ps_VertexPositionColor.cso $(ProjectDir)\Content\ps_VertexPositionColor.hlsl" />
   </Target>
 </Project>

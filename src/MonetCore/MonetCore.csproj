@@ -59,10 +59,24 @@
     <Compile Include="Content\ShaderContentLoader.cs" />
     <Compile Include="FrameTimer.cs" />
     <Compile Include="GraphicsDevice.cs" />
+    <Compile Include="Graphics\Camera.cs" />
+    <Compile Include="Graphics\ConstantBufferTypes.cs" />
+    <Compile Include="Graphics\D3DHelpers.cs" />
+    <Compile Include="Graphics\Geometry\MeshBuilder.cs" />
+    <Compile Include="Graphics\Geometry\Primitives.cs" />
+    <Compile Include="Graphics\Material.cs" />
+    <Compile Include="Graphics\Mesh.cs" />
+    <Compile Include="Graphics\Model.cs" />
+    <Compile Include="Graphics\PrimitivesBatch.cs" />
+    <Compile Include="Graphics\Skeleton.cs" />
+    <Compile Include="Graphics\VertexTypes.cs" />
+    <Compile Include="MonetMath.cs" />
     <Compile Include="Monet.cs" />
     <Compile Include="MonetApp.cs" />
     <Compile Include="MonetServiceProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SceneNode.cs" />
+    <Compile Include="Transform.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

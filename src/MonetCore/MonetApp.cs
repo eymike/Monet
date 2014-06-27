@@ -51,8 +51,6 @@ namespace MonetCore
 
         private void InternalRender()
         {
-            m_graphicsDevice.Present();
-            m_components.Draw();
             Render();
             m_graphicsDevice.Present();
         }
@@ -64,7 +62,7 @@ namespace MonetCore
 
         public virtual void Render()
         {
-           
+            m_components.Draw();
         }
 
         protected virtual void LoadContent()

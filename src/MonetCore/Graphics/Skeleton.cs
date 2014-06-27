@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace MonetPainterly
+namespace MonetCore.Graphics
 {
-    public class PainterlyRenderer
+    public class SkeletonInstance
+    {
+
+    }
+
+    public class Skeleton
     {
 
     }
