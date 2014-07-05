@@ -13,6 +13,7 @@ namespace MonetCore.Graphics
 
         const int BUFFER_SIZE = 512;
         SharpDX.Direct3D11.Buffer m_primitiveBuffer;
+        VertexBufferBinding m_bufferBinding;
         VertexType[] m_vertexArray = new VertexType[BUFFER_SIZE];
         
         int m_positionInBuffer = 0;
@@ -37,6 +38,7 @@ namespace MonetCore.Graphics
             };
 
             m_primitiveBuffer = new SharpDX.Direct3D11.Buffer(graphics.Device, desc);
+            m_bufferBinding = new VertexBufferBinding(m_primitiveBuffer, Marshal.SizeOf(typeof(VertexType)), 0);
         }
 
         public void Begin(DeviceContext1 context, Camera camera, Matrix world, PrimitiveTopology topology)
@@ -49,9 +51,13 @@ namespace MonetCore.Graphics
             m_topology = topology;
             m_positionInBuffer = 0;
             m_renderingContext = context;
+            m_primMaterial.World = world;
 
+            camera.Bind(m_renderingContext);
             m_primMaterial.Material.Bind(m_renderingContext);
             m_primMaterial.Bind(m_renderingContext);
+            m_renderingContext.InputAssembler.PrimitiveTopology = m_topology;
+            m_renderingContext.InputAssembler.SetVertexBuffers(0, m_bufferBinding);
 
             m_begun = true;
         }
@@ -63,6 +69,27 @@ namespace MonetCore.Graphics
             if(BUFFER_SIZE - m_positionInBuffer < D3DHelper.PrimitiveSizeForTopology(m_topology))
             {
                 Flush();
+            }
+        }
+
+        public void AddLine(VertexType v1, VertexType v2)
+        {
+            AddVertex(v1);
+            AddVertex(v2);
+        }
+
+        public void AddTriangle(VertexType v1, VertexType v2, VertexType v3)
+        {
+            AddVertex(v1);
+            AddVertex(v2);
+            AddVertex(v3);
+        }
+
+        public void AddPrimitives(params VertexType[] verts)
+        {
+            foreach(var vertex in verts)
+            {
+                AddVertex(vertex);
             }
         }
 
@@ -90,7 +117,6 @@ namespace MonetCore.Graphics
             }
 
             m_renderingContext.UnmapSubresource(m_primitiveBuffer, 0);
-            m_renderingContext.InputAssembler.PrimitiveTopology = m_topology;
             m_renderingContext.Draw(m_positionInBuffer, 0);
             m_positionInBuffer = 0;
         }

@@ -21,23 +21,25 @@ namespace MonetCore.Graphics
         public Matrix World
         {
             get { return m_vars.World; }
-            set { m_vars.World = value; }
+            set { m_vars.World = Matrix.Transpose(value); }
         }
 
         public MaterialInstance(GraphicsDevice graphics, Material material)
         {
             m_material = material;
 
+            m_vars.World = Matrix.Identity;
+
             var constantBufferSize = Marshal.SizeOf(typeof(PerObjectVars));
 
             BufferDescription desc = new BufferDescription
             {
                 BindFlags = BindFlags.ConstantBuffer,
-                CpuAccessFlags = CpuAccessFlags.Write,
+                CpuAccessFlags = CpuAccessFlags.None,
                 OptionFlags = ResourceOptionFlags.None,
                 SizeInBytes = constantBufferSize,
                 StructureByteStride = 0,
-                Usage = ResourceUsage.Dynamic
+                Usage = ResourceUsage.Default
             };
 
             m_constantBuffer = new SharpDX.Direct3D11.Buffer(graphics.Device, desc);
@@ -56,6 +58,7 @@ namespace MonetCore.Graphics
         private readonly VertexShader m_vShader;
         private readonly GeometryShader m_gShader;
         private readonly PixelShader m_pShader;
+        private readonly InputLayout m_layout;
 
         public static bool operator==(Material left, Material right)
         {
@@ -80,16 +83,25 @@ namespace MonetCore.Graphics
             return (obj is Material) && (Material)obj == this;
         }
 
-        public Material(GraphicsDevice graphics, VertexShader vShader, GeometryShader gShader, PixelShader pShader)
+        public static Material Create(GraphicsDevice graphics, VertexShader vShader, GeometryShader gShader, PixelShader pShader, InputElement[] elements)
+        {
+            var layout = new InputLayout(graphics.Device, (byte[])vShader.Tag, elements);
+            return new Material(graphics, vShader, gShader, pShader, layout);
+        }
+
+        private Material(GraphicsDevice graphics, VertexShader vShader, GeometryShader gShader, PixelShader pShader, InputLayout layout)
         {
             m_device = graphics;
             m_vShader = vShader;
             m_gShader = gShader;
             m_pShader = pShader;
+            m_layout = layout;
+
         }
 
         public void Bind(DeviceContext1 context)
         {
+            context.InputAssembler.InputLayout = m_layout;
             context.VertexShader.Set(m_vShader);
             context.GeometryShader.Set(m_gShader);
             context.PixelShader.Set(m_pShader);

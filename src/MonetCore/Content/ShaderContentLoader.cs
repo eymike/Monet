@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 
+using SharpDX;
+using SharpDX.Direct3D;
 using SharpDX.Direct3D11;
 
 namespace MonetCore.Content
@@ -15,8 +17,12 @@ namespace MonetCore.Content
         {
             var graphicsDevice = m_services.GetService(typeof(GraphicsDeviceService)) as GraphicsDeviceService;
             var device = graphicsDevice.GrapicsDevice.Device;
-
-            return new VertexShader(device, File.ReadAllBytes(uri.AbsolutePath));
+            var byteCode = File.ReadAllBytes(uri.AbsolutePath);
+            
+            var vShader = new VertexShader(device, File.ReadAllBytes(uri.AbsolutePath));
+            vShader.Tag = byteCode;
+            
+            return vShader;
         }
     }
 

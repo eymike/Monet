@@ -108,6 +108,11 @@ namespace MonetCore
             {
                 m_depthStencil = new DepthStencilView(m_device, depthStecilBuffer);
             }
+
+            var viewport = new ViewportF(0, 0, width, height);
+
+            m_immContext.Rasterizer.SetViewport(viewport);
+            m_immContext.OutputMerger.SetRenderTargets(m_renderTarget);
         }
 
         void form_ResizeEnd(object sender, EventArgs e)

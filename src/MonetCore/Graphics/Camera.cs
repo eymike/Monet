@@ -15,7 +15,7 @@ namespace MonetCore.Graphics
         public Matrix Projection
         {
             get { return m_cameraParams.Proj; }
-            private set { m_cameraParams.Proj = value; }
+            private set { m_cameraParams.Proj = Matrix.Transpose(value); }
         }
 
         public SceneNode SceneNode { get; set; }
@@ -41,7 +41,7 @@ namespace MonetCore.Graphics
             m_viewParamsBuffer = new SharpDX.Direct3D11.Buffer(graphics.Device, desc);
         }
 
-        void Bind(DeviceContext1 context)
+        public void Bind(DeviceContext1 context)
         {
             var globalTransform = SceneNode.GlobalTransform;
 
@@ -49,7 +49,7 @@ namespace MonetCore.Graphics
             var up = Vector3.TransformNormal(Vector3.UnitY, globalTransform);
             var origin = Vector3.TransformCoordinate(Vector3.Zero, globalTransform);
 
-            m_cameraParams.View = Matrix.LookAtRH(origin, origin + forward, up);
+            m_cameraParams.View = Matrix.Transpose(Matrix.LookAtRH(origin, origin + forward, up));
             context.UpdateSubresource<CameraParams>(ref m_cameraParams, m_viewParamsBuffer);
             context.VertexShader.SetConstantBuffer(0, m_viewParamsBuffer);
         }
