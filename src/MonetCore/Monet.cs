@@ -15,7 +15,7 @@ namespace MonetCore
 
         public static void LogMsg(string msg)
         {
-            Console.WriteLine(msg);
+            System.Console.WriteLine(string.Format("[{0}]: {1}", DateTime.Now.ToString("HH:mm:ss.ffff"), msg));
         }
     }
 }

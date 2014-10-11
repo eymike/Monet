@@ -3,6 +3,7 @@ cbuffer CameraParams : register(b0)
 {
 	matrix View;
 	matrix Proj;
+	float2 ViewPortDimensions;
 };
 
 cbuffer PerObjectParams : register(b1)
@@ -20,4 +21,18 @@ struct VertexSVPositionColor
 {
 	float4 position : SV_POSITION;
 	float4 color	: COLOR0;
+};
+
+struct VertexPositionColorSize
+{
+	float3 position : POSITION0;
+	float  size		: SIZE0;
+	float4 color	: COLOR0;
+};
+
+struct VertexSVPositionColorSize
+{
+	float4 position : SV_POSITION;
+	float4 color	: COLOR0;
+	float  size		: SIZE0;
 };

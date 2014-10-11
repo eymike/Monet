@@ -17,15 +17,18 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)..\$(ProjectName)\obj\Debug\</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)..\$(ProjectName)\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)..\$(ProjectName)\obj\Release\</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)..\$(ProjectName)\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -58,9 +61,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppComponent.cs" />
+    <Compile Include="Console\Console.cs" />
     <Compile Include="ContentManager.cs" />
     <Compile Include="Content\ContentLoader.cs" />
     <Compile Include="Content\ShaderContentLoader.cs" />
+    <Compile Include="FormService.cs" />
     <Compile Include="FrameTimer.cs" />
     <Compile Include="GraphicsDevice.cs" />
     <Compile Include="Graphics\Camera.cs" />
@@ -81,8 +86,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SceneNode.cs" />
     <Compile Include="Transform.cs" />
+    <Compile Include="World\EntityManager.cs" />
+    <Compile Include="World\GameSystemsManager.cs" />
+    <Compile Include="World\IEntityComponent.cs" />
+    <Compile Include="World\Scene.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Input\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -19,8 +19,51 @@ namespace MonetCore
         event Action<IUpdateable> OnUpdateOrderChanged;
     }
 
+    public class DrawableComponent : IDrawable
+    {
+        protected IServiceProvider Services { get; private set; }
+
+        public DrawableComponent(IServiceProvider services)
+        {
+            Services = services;
+        }
+
+        private int m_drawOrder;
+        public int DrawOrder
+        {
+            get { return m_drawOrder; }
+            set
+            {
+                int v = value;
+                if (v != m_drawOrder)
+                {
+                    m_drawOrder = v;
+                    if (OnDrawOrderChanged != null)
+                    {
+                        var onDraw = OnDrawOrderChanged;
+                        onDraw(this);
+                    }
+                }
+            }
+        }
+        public event Action<IDrawable> OnDrawOrderChanged;
+
+        public virtual void Draw()
+        {
+
+        }
+    }
+
     public class AppComponent : IDrawable, IUpdateable
     {
+        protected IServiceProvider Services { get; private set; }
+
+        public AppComponent(IServiceProvider services)
+        {
+            Services = services;
+        }
+
+        
         private int m_drawOrder;
         public int DrawOrder
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 using System.Windows.Forms;
 
@@ -32,6 +33,8 @@ namespace MonetCore
             get { return m_device; }
         }
 
+        public Vector2 ScreenDimensions { get; private set; }
+
         private readonly SharpDX.DXGI.SwapChain m_swapChain;
 
         private RenderTargetView m_renderTarget;
@@ -42,6 +45,10 @@ namespace MonetCore
         {
             get { return m_immContext; }
         }
+
+        public event Action<int, int> OnScreenDimensionChanged;
+
+        private object _resetLock = new object();
 
         public GraphicsDevice(Form form)
         {
@@ -88,6 +95,8 @@ namespace MonetCore
             if (m_renderTarget != null) { Monet.SafeDispose(m_renderTarget); }
             if (m_depthStencil != null) { Monet.SafeDispose(m_depthStencil); }
 
+            ScreenDimensions = new Vector2(width, height);
+
             using(var backBuffer = m_swapChain.GetBackBuffer<Texture2D>(0))
             {
                 m_renderTarget = new RenderTargetView(m_device, backBuffer);
@@ -109,27 +118,39 @@ namespace MonetCore
                 m_depthStencil = new DepthStencilView(m_device, depthStecilBuffer);
             }
 
-            var viewport = new ViewportF(0, 0, width, height);
-
-            m_immContext.Rasterizer.SetViewport(viewport);
             m_immContext.OutputMerger.SetRenderTargets(m_renderTarget);
+
+            if(OnScreenDimensionChanged != null)
+            {
+                var onDimChanged = OnScreenDimensionChanged;
+                onDimChanged(width, height);
+            }
         }
 
         void form_ResizeEnd(object sender, EventArgs e)
         {
-            var form = sender as Form;
-            ResetDevice(form.Width, form.Height);
+            lock (_resetLock)
+            {
+                var form = sender as Form;
+                ResetDevice(form.Width, form.Height);
+            }
         }
 
         public void Clear(Color clearColor)
         {
-            m_immContext.ClearRenderTargetView(m_renderTarget, clearColor.ToColor4());
-            m_immContext.ClearDepthStencilView(m_depthStencil, DepthStencilClearFlags.Depth | DepthStencilClearFlags.Stencil, 1, 0);
+            lock (_resetLock)
+            {
+                m_immContext.ClearRenderTargetView(m_renderTarget, clearColor.ToColor4());
+                m_immContext.ClearDepthStencilView(m_depthStencil, DepthStencilClearFlags.Depth | DepthStencilClearFlags.Stencil, 1, 0);
+            }
         }
 
         public void Present()
         {
-            m_swapChain.Present(1, PresentFlags.None);
+            lock(_resetLock)
+            {
+                m_swapChain.Present(1, PresentFlags.None);
+            }
         }
 
         public void Dispose()

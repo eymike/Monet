@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MonetCore.Graphics
 {
-    internal class MeshMaterialPair
+   /* internal class MeshMaterialPair
     {
         public Mesh Mesh { get; set; }
         public Material Material { get; set; }
@@ -43,5 +43,5 @@ namespace MonetCore.Graphics
     public class SkinnedModel : Model
     {
         private Skeleton m_skeleton;
-    }
+    }*/
 }

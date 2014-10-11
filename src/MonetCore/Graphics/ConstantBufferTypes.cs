@@ -14,6 +14,12 @@ namespace MonetCore.Graphics
 
         [FieldOffset(sizeof(float) * 16)]
         public Matrix Proj;
+
+        [FieldOffset(sizeof(float) * 16 * 2)]
+        public Vector2 ScreenDimensions;
+
+        [FieldOffset((sizeof(float) * 16 * 2) + (sizeof(float) * 2))]
+        public Vector2 Filler;
     }
 
     [StructLayout(LayoutKind.Explicit)]

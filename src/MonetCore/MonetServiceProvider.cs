@@ -18,9 +18,10 @@ namespace MonetCore
     {
         Dictionary<Type, object> m_services = new Dictionary<Type, object>();
 
-        public MonetServiceProvider(GraphicsDeviceService bootStrap)
+        public MonetServiceProvider(GraphicsDeviceService bootStrap, FormService formService)
         {
             m_services.Add(typeof(GraphicsDeviceService), bootStrap);
+            m_services.Add(typeof(FormService), formService);
 
             var ca = typeof(ContentManager).GetCustomAttributes(true);
 

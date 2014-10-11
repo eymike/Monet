@@ -44,6 +44,36 @@ namespace MonetCore.Graphics
     }
 
     [StructLayout(LayoutKind.Explicit)]
+    public struct VertexPositionColorSize
+    {
+        [FieldOffset(0)]
+        public Vector3 Position;
+
+        [FieldOffset(12)]
+        public float Size;
+
+        [FieldOffset(16)]
+        public Vector4 Color;
+
+        public VertexPositionColorSize(Vector3 position, Vector4 color, float size)
+        {
+            Position = position;
+            Color = color;
+            Size = size;
+        }
+
+        public static InputElement[] GetInputElements()
+        {
+            return new InputElement[] 
+            { 
+                new InputElement("POSITION", 0, SharpDX.DXGI.Format.R32G32B32_Float, InputElement.AppendAligned, 0),
+                new InputElement("SIZE", 0, SharpDX.DXGI.Format.R32_Float, InputElement.AppendAligned, 0),
+                new InputElement("COLOR", 0, SharpDX.DXGI.Format.R32G32B32A32_Float, InputElement.AppendAligned, 0)
+            };
+        }
+    }
+
+    [StructLayout(LayoutKind.Explicit)]
     public struct VertexPositionNormal
     {
         [FieldOffset(0)]

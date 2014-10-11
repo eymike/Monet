@@ -17,16 +17,19 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)..\$(ProjectName)\obj\Debug\</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)..\$(ProjectName)\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)..\$(ProjectName)\obj\Release\</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)..\$(ProjectName)\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -50,8 +53,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\gs_VertexPositionColor.hlsl" />
+    <Content Include="Content\gs_VertexPositionColorSize.hlsl" />
     <Content Include="Content\ps_VertexPositionColor.hlsl" />
+    <Content Include="Content\ps_VertexPositionColorSize.hlsl" />
     <Content Include="Content\vs_VertexPositionColor.hlsl" />
+    <Content Include="Content\vs_VertexPositionColorSize.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="SharpDX, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -71,8 +77,13 @@
   </Target>
   -->
   <Target Name="AfterBuild">
+    <Exec Command="IF NOT EXIST $(OutDir)\Content mkdir $(OutDir)\Content"/>
     <Exec Command="$(SolutionDir)..\tool\fxc.bat /T vs_5_0 /E main /Fo $(OutDir)\Content\vs_VertexPositionColor.cso $(ProjectDir)\Content\vs_VertexPositionColor.hlsl" />
     <!--<Exec Command="$(SolutionDir)..\tool\fxc.bat /T gs_5_0 /E main /Fo $(OutDir)\Content\gs_VertexPositionColor.cso $(ProjectDir)\Content\gs_VertexPositionColor.hlsl" />-->
     <Exec Command="$(SolutionDir)..\tool\fxc.bat /T ps_5_0 /E main /Fo $(OutDir)\Content\ps_VertexPositionColor.cso $(ProjectDir)\Content\ps_VertexPositionColor.hlsl" />
+    <!--PositionColorSize-->
+    <Exec Command="$(SolutionDir)..\tool\fxc.bat /T vs_5_0 /E main /Fo $(OutDir)\Content\vs_VertexPositionColorSize.cso $(ProjectDir)\Content\vs_VertexPositionColorSize.hlsl" />
+    <Exec Command="$(SolutionDir)..\tool\fxc.bat /T gs_5_0 /E main /Fo $(OutDir)\Content\gs_VertexPositionColorSize.cso $(ProjectDir)\Content\gs_VertexPositionColorSize.hlsl" />
+    <Exec Command="$(SolutionDir)..\tool\fxc.bat /T ps_5_0 /E main /Fo $(OutDir)\Content\ps_VertexPositionColorSize.cso $(ProjectDir)\Content\ps_VertexPositionColorSize.hlsl" />
   </Target>
 </Project>

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace MonetPainterly
+namespace MonetCore.World
 {
-    public class PainterlyRenderer
+    public interface IEntityComponent
     {
-
+        Type ComponentType { get; }
     }
 }
